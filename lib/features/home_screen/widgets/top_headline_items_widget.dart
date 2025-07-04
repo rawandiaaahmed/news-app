@@ -39,7 +39,7 @@ class TopHeadlineItemsWidget extends StatelessWidget {
         SizedBox(height: 16.h),
         SizedBox(
           width: 238.w,
-          child: Text(title, style: AppTextStyles.titlesStyles.copyWith(fontSize: 18.sp))),
+          child: Expanded(child: Text(title, style: AppTextStyles.titlesStyles.copyWith(fontSize: 18.sp)))),
         SizedBox(height: 8.h),
          Text("$authorName . $date", style: AppTextStyles.Gray14Regular),
 

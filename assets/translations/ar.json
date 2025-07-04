@@ -5,5 +5,6 @@
     "technology":"تقنية",
     "entertainment": "ترفيه",
     "cancel": "إلغاء",
-    "searchResults": "نتائج البحث"
+    "searchResults": "نتائج البحث",
+    "noData" : "لا توجد بيانات"
 }
