@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/core/constants/constant.dart';
 import 'package:flutter_application_1/core/routing/app_routes.dart';
 
 import 'package:flutter_application_1/core/style/app_colors.dart';
@@ -42,7 +43,18 @@ class _HomeScreenState extends State<HomeScreen> {
                   .titlesStyles, // Using EasyLocalization for translation
         ),
         actions: [
-         SearchTextFieldWidget()
+          SearchTextFieldWidget(),
+          IconButton(
+            onPressed: () {
+              if (context.locale.languageCode == "en") {
+                context.setLocale(Locale("ar"));
+              } else {
+                context.setLocale(Locale("en"));
+              }
+              AppConstant.lan = context.locale.languageCode;
+            },
+            icon: Icon(Icons.language, color: Colors.black),
+          ),
         ],
       ),
       body: FutureBuilder(
@@ -75,7 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         CustomCategoryItemWidget(
                           title: 'travel'.tr(),
                           onTap: () {
-                           GoRouter.of(context).pushNamed(
+                            GoRouter.of(context).pushNamed(
                               AppRoutes.searchResultScreen,
                               extra: 'travel'.tr(),
                             );
@@ -84,7 +96,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         CustomCategoryItemWidget(
                           title: 'technology'.tr(),
                           onTap: () {
-                              GoRouter.of(context).pushNamed(
+                            GoRouter.of(context).pushNamed(
                               AppRoutes.searchResultScreen,
                               extra: 'technology'.tr(),
                             );
@@ -93,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         CustomCategoryItemWidget(
                           title: 'business'.tr(),
                           onTap: () {
-                              GoRouter.of(context).pushNamed(
+                            GoRouter.of(context).pushNamed(
                               AppRoutes.searchResultScreen,
                               extra: 'business'.tr(),
                             );
@@ -102,7 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         CustomCategoryItemWidget(
                           title: 'entertainment'.tr(),
                           onTap: () {
-                              GoRouter.of(context).pushNamed(
+                            GoRouter.of(context).pushNamed(
                               AppRoutes.searchResultScreen,
                               extra: 'entertainment'.tr(),
                             );
@@ -142,16 +154,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       itemBuilder: (context, index) {
                         Article article = topHeadlinesModels.articles![index];
 
-                        return ArticalCardWidget(
-                          title: article.title ?? 'No Title',
-                          authorName: article.author ?? 'Unknown Author',
-                          date: DateFormat(
-                            'yyyy-MM-dd',
-                          ).format(article.publishedAt ?? DateTime.now()),
-                          imageUrl:
-                              article.urlToImage ??
-                              'https://images.pond5.com/breaking-news-background-red-colour-158889432_prevstill.jpeg',
-                        );
+                        return ArticalCardWidget(article: article);
                       },
                     ),
                   ),

@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/core/constants/constant.dart';
 
 import 'package:flutter_application_1/core/style/app_text_styles.dart';
 import 'package:flutter_application_1/features/home_screen/model/arcitles_models.dart';
@@ -26,6 +27,20 @@ class SearchResultScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         elevation: 0,
         centerTitle: true,
+         actions: [
+         
+          IconButton(
+            onPressed: () {
+              if (context.locale.languageCode == "en") {
+                context.setLocale(Locale("ar"));
+              } else {
+                context.setLocale(Locale("en"));
+              }
+              AppConstant.lan = context.locale.languageCode;
+            },
+            icon: Icon(Icons.language, color: Colors.black),
+          ),
+        ],
       ),
       body: FutureBuilder(
         future: SearchResultServices().SearchItemByName(query),
@@ -56,14 +71,8 @@ class SearchResultScreen extends StatelessWidget {
                         Article article = topHeadlinesModels.articles![index];
 
                         return ArticalCardWidget(
-                          title: article.title ?? 'No Title',
-                          authorName: article.author ?? 'Unknown Author',
-                          date: DateFormat(
-                            'yyyy-MM-dd',
-                          ).format(article.publishedAt ?? DateTime.now()),
-                          imageUrl:
-                              article.urlToImage ??
-                              'https://images.pond5.com/breaking-news-background-red-colour-158889432_prevstill.jpeg',
+                          article: article
+                             
                         );
                       },
                     ),

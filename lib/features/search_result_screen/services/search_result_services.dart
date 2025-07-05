@@ -8,7 +8,7 @@ class SearchResultServices {
     try {
       final response = await DioHelper.getRequest(
         endPoint: ApiEndpoint.searchEndpoint,
-        query: {"apiKey": AppConstant.newsApiKey, "q": query},
+        query: {"apiKey": AppConstant.newsApiKey, "q": query,"language":AppConstant.lan},
       );
       if (response.statusCode == 200) {
       ArcitlesModels arcitlesModels = ArcitlesModels.fromJson(

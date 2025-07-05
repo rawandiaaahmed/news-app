@@ -1,6 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_application_1/core/routing/app_routes.dart';
+import 'package:flutter_application_1/features/home_screen/article_details_screen.dart';
 import 'package:flutter_application_1/features/home_screen/home_screen.dart';
+import 'package:flutter_application_1/features/home_screen/model/arcitles_models.dart';
 import 'package:flutter_application_1/features/search_result_screen/search_result_screen.dart';
 import 'package:go_router/go_router.dart';
 
@@ -22,14 +24,17 @@ class RouterGenerationConfig {
         path: AppRoutes.searchResultScreen,
         name: AppRoutes.searchResultScreen,
         builder: (context, state) {
-          String query= state.extra as String;
-         return SearchResultScreen(query: query ,);
+          String query = state.extra as String;
+          return SearchResultScreen(query: query);
         },
       ),
       GoRoute(
         path: AppRoutes.articleDetailsScreen,
         name: AppRoutes.articleDetailsScreen,
-        builder: (context, state) => Container(),
+        builder: (context, state) {
+          Article article = state.extra as Article;
+          return ArticleDetailsScreen(article: article);
+        },
       ),
     ],
   );

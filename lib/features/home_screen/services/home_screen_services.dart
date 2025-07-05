@@ -8,7 +8,7 @@ class HomeScreenServices {
     try {
       final response = await DioHelper.getRequest(
         endPoint: ApiEndpoint.topHeadlineEndpoint,
-        query: {"apiKey": AppConstant.newsApiKey, "country": "us"},
+        query: {"apiKey": AppConstant.newsApiKey, "country": "us",},
       );
       if (response.statusCode == 200) {
         ArcitlesModels topHeadlinesModels = ArcitlesModels.fromJson(
