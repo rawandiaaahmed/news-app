@@ -4,16 +4,17 @@ import 'package:flutter_application_1/core/style/app_text_styles.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomCategoryItemWidget extends StatelessWidget {
-  const CustomCategoryItemWidget({Key? key, required this.title})
+  const CustomCategoryItemWidget({Key? key, required this.title,required this.onTap})
     : super(key: key);
   final String title;
+  final Function() onTap;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(right: 16.w),
       child: InkWell(
-        onTap: () {},
+        onTap: onTap,
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 6.h),
           alignment: Alignment.center,

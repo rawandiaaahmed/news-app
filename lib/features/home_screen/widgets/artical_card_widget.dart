@@ -46,14 +46,20 @@ class ArticalCardWidget extends StatelessWidget {
 
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8.0.r),
-              child: CachedNetworkImage(
-                imageUrl:
-                    imageUrl ??
-                    "https://images.pond5.com/breaking-news-background-red-colour-158889432_prevstill.jpeg",
-                height: 206.h,
-                width: double.infinity,
-                fit: BoxFit.fill,
-              ),
+              child:CachedNetworkImage(
+  imageUrl: imageUrl ??
+      "https://images.pond5.com/breaking-news-background-red-colour-158889432_prevstill.jpeg",
+  height: 206.h,
+  width: double.infinity,
+  fit: BoxFit.fill,
+  placeholder: (context, url) => Center(
+    child: CircularProgressIndicator(),
+  ),
+  errorWidget: (context, url, error) => Image.asset(
+    'assets/images/images.jpeg', 
+    fit: BoxFit.cover,
+  ),
+),
             ),
           ),
         ],

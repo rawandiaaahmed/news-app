@@ -7,7 +7,9 @@ class CustomTextField extends StatelessWidget {
   const CustomTextField({
     Key? key,
     this.hintText,
+    this.onFieldSubmitted,
     this.controller,
+    this.height,
     this.keyboardType,
     required this.obscureText,
     this.prefixIcon,
@@ -26,21 +28,26 @@ class CustomTextField extends StatelessWidget {
   final Widget? suffixIcon;
   final Function(String)? onChanged;
   final double? width;
+  final double? height;
   final bool? ispassword;
   final String? Function(String?)? validator;
   final int? maxLines;
+  final void Function(String)? onFieldSubmitted;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: width ?? 331.w,
+      height: height ?? 331.h,
       child: TextFormField(
         controller: controller,
         keyboardType: keyboardType ?? TextInputType.text,
-        obscureText: ispassword ?? false,
+       
         autofocus: false,
         maxLines: maxLines ?? 1,
         validator: validator,
+        obscureText: ispassword??false,
+        onFieldSubmitted: onFieldSubmitted,
 
         cursorColor: AppColors.primary,
         decoration: InputDecoration(
@@ -81,6 +88,8 @@ class CustomTextField extends StatelessWidget {
 
           filled: true,
           fillColor: AppColors.white,
+          suffixIcon: suffixIcon,
+
 
           
         ),

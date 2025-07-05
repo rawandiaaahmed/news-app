@@ -6,5 +6,6 @@
     "entertainment": "ترفيه",
     "cancel": "إلغاء",
     "searchResults": "نتائج البحث",
-    "noData" : "لا توجد بيانات"
+    "noData" : "لا توجد بيانات",
+    "search":"بحث"
 }

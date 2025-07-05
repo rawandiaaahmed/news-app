@@ -1,17 +1,17 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/core/constants/constant.dart';
-import 'package:flutter_application_1/core/networking/api_endpoint.dart';
-import 'package:flutter_application_1/core/networking/dio_helper.dart';
+import 'package:flutter_application_1/core/routing/app_routes.dart';
 
 import 'package:flutter_application_1/core/style/app_colors.dart';
 import 'package:flutter_application_1/core/style/app_text_styles.dart';
-import 'package:flutter_application_1/features/home_screen/model/top_headlines_models.dart';
+import 'package:flutter_application_1/features/home_screen/model/arcitles_models.dart';
 import 'package:flutter_application_1/features/home_screen/services/home_screen_services.dart';
 import 'package:flutter_application_1/features/home_screen/widgets/artical_card_widget.dart';
 import 'package:flutter_application_1/features/home_screen/widgets/custom_category_item_widget.dart';
+import 'package:flutter_application_1/features/home_screen/widgets/search_text_field_widget.dart';
 import 'package:flutter_application_1/features/home_screen/widgets/top_headline_items_widget.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -42,12 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   .titlesStyles, // Using EasyLocalization for translation
         ),
         actions: [
-          IconButton(
-            icon: Icon(Icons.search, color: AppColors.primary),
-            onPressed: () {
-              // Implement search functionality here
-            },
-          ),
+         SearchTextFieldWidget()
         ],
       ),
       body: FutureBuilder(
@@ -62,8 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
             return Center(child: Text(snapshot.error.toString()));
           }
           if (snapshot.hasData) {
-            TopHeadlinesModels topHeadlinesModels =
-                snapshot.data as TopHeadlinesModels;
+            ArcitlesModels topHeadlinesModels = snapshot.data as ArcitlesModels;
             if (topHeadlinesModels.totalResults == 0) {
               return Center(child: Text('noData'.tr()));
             }
@@ -78,10 +72,42 @@ class _HomeScreenState extends State<HomeScreen> {
                       physics: BouncingScrollPhysics(),
                       scrollDirection: Axis.horizontal,
                       children: [
-                        CustomCategoryItemWidget(title: 'travel'.tr()),
-                        CustomCategoryItemWidget(title: 'technology'.tr()),
-                        CustomCategoryItemWidget(title: 'business'.tr()),
-                        CustomCategoryItemWidget(title: 'entertainment'.tr()),
+                        CustomCategoryItemWidget(
+                          title: 'travel'.tr(),
+                          onTap: () {
+                           GoRouter.of(context).pushNamed(
+                              AppRoutes.searchResultScreen,
+                              extra: 'travel'.tr(),
+                            );
+                          },
+                        ),
+                        CustomCategoryItemWidget(
+                          title: 'technology'.tr(),
+                          onTap: () {
+                              GoRouter.of(context).pushNamed(
+                              AppRoutes.searchResultScreen,
+                              extra: 'technology'.tr(),
+                            );
+                          },
+                        ),
+                        CustomCategoryItemWidget(
+                          title: 'business'.tr(),
+                          onTap: () {
+                              GoRouter.of(context).pushNamed(
+                              AppRoutes.searchResultScreen,
+                              extra: 'business'.tr(),
+                            );
+                          },
+                        ),
+                        CustomCategoryItemWidget(
+                          title: 'entertainment'.tr(),
+                          onTap: () {
+                              GoRouter.of(context).pushNamed(
+                              AppRoutes.searchResultScreen,
+                              extra: 'entertainment'.tr(),
+                            );
+                          },
+                        ),
                       ],
                     ),
                   ),
@@ -119,12 +145,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         return ArticalCardWidget(
                           title: article.title ?? 'No Title',
                           authorName: article.author ?? 'Unknown Author',
-                          date: DateFormat('yyyy-MM-dd').format(
-                            article.publishedAt ?? DateTime.now(),
-                          ),
-                          imageUrl: article.urlToImage ??
+                          date: DateFormat(
+                            'yyyy-MM-dd',
+                          ).format(article.publishedAt ?? DateTime.now()),
+                          imageUrl:
+                              article.urlToImage ??
                               'https://images.pond5.com/breaking-news-background-red-colour-158889432_prevstill.jpeg',
-                         
                         );
                       },
                     ),
